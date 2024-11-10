@@ -4,8 +4,9 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Region } from 'react-native-maps';
 import Plus from '@/components/Plus';
+import { useState } from 'react';
 
 const styles = StyleSheet.create({
   titleContainer: {
@@ -38,6 +39,18 @@ const styles = StyleSheet.create({
 
 
 export default function HomeScreen() {
+  const [region, setRegion] = useState({
+    latitude: 42.3754421,
+    longitude: -72.5194282,
+    latitudeDelta: 0.0022,
+    longitudeDelta: 0.00921,
+  });
+
+  const onRegionChangeComplete = (newRegion: Region) => {
+    setRegion(newRegion);
+  };
+
+
   return (
     <>
       <View style={styles.container}>
@@ -49,6 +62,7 @@ export default function HomeScreen() {
             latitudeDelta: 0.0000022, // Adjusts zoom level
             longitudeDelta: 0.00921,
           }}
+          onRegionChangeComplete={onRegionChangeComplete}
         >
           {/* Example Marker */}
           <Marker
